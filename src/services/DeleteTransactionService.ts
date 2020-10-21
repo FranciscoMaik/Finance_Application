@@ -1,5 +1,5 @@
+import { getRepository } from 'typeorm';
 import AppError from '../errors/AppError';
-import { getRepository } from 'typeorm'
 import Transaction from '../models/Transaction';
 
 interface Request {
@@ -11,16 +11,14 @@ class DeleteTransactionService {
     const transactionsRepository = getRepository(Transaction);
 
     const verifyTransaction = await transactionsRepository.findOne({
-      where: { id }
-    })
+      where: { id },
+    });
 
     if (!verifyTransaction) {
-      throw new AppError("Transaction not found")
+      throw new AppError('Transaction not found');
     }
 
-    await transactionsRepository.delete(id)
-
-    return
+    await transactionsRepository.delete(id);
   }
 }
 

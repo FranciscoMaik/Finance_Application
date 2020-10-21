@@ -1,19 +1,18 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CategoryTransition1603042356446 implements MigrationInterface {
-
+export default class CategoryTransition1603042356446
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "categories",
+        name: 'categories',
         columns: [
           {
             name: 'id',
-            type: "uuid",
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
-
           },
           {
             name: 'title',
@@ -22,19 +21,19 @@ export default class CategoryTransition1603042356446 implements MigrationInterfa
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()'
+            default: 'now()',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()'
-          }]
-      })
-    )
+            default: 'now()',
+          },
+        ],
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('categories')
+    await queryRunner.dropTable('categories');
   }
-
 }

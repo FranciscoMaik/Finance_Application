@@ -1,15 +1,20 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
-export default class CreateTransition1603042456375 implements MigrationInterface {
-
+export default class CreateTransition1603042456375
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "transactions",
+        name: 'transactions',
         columns: [
           {
             name: 'id',
-            type: "uuid",
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
@@ -20,29 +25,32 @@ export default class CreateTransition1603042456375 implements MigrationInterface
           },
           {
             name: 'value',
-            type: 'float',
+            type: 'decimal',
+            precision: 10,
+            scale: 2,
           },
           {
             name: 'type',
-            type: 'varchar'
+            type: 'varchar',
           },
           {
             name: 'category_id',
             type: 'uuid',
-            isNullable: true
+            isNullable: true,
           },
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()'
+            default: 'now()',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()'
-          }]
-      })
-    )
+            default: 'now()',
+          },
+        ],
+      }),
+    );
 
     await queryRunner.createForeignKey(
       'transactions',
@@ -51,16 +59,14 @@ export default class CreateTransition1603042456375 implements MigrationInterface
         columnNames: ['category_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'categories',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      })
-    )
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('transactions', 'TransactionType');
     await queryRunner.dropTable('transactions');
   }
-
-
 }

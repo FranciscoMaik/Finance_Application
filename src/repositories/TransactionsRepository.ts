@@ -25,10 +25,10 @@ class TransactionsRepository extends Repository<Transaction> {
       (acc: Balance, transaction: Transaction) => {
         switch (transaction.type) {
           case 'income':
-            acc.income += transaction.value;
+            acc.income += Number(transaction.value);
             break;
           case 'outcome':
-            acc.outcome += transaction.value;
+            acc.outcome += Number(transaction.value);
             break;
           default:
             break;
@@ -38,8 +38,8 @@ class TransactionsRepository extends Repository<Transaction> {
       {
         income: 0,
         outcome: 0,
-        total: 0
-      }
+        total: 0,
+      },
     );
 
     const total = income - outcome;
