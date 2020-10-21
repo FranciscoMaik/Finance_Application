@@ -28,7 +28,6 @@ class CreateTransactionService {
     if (checkCategory) {
       existId = checkCategory.id
     } else {
-
       const categoryCreate = categoriesRepository.create({
         title: category,
       })
@@ -38,14 +37,14 @@ class CreateTransactionService {
     }
 
 
-    const transactionCreate = transitionsRepository.create({
+    const transaction = transitionsRepository.create({
       title,
       value,
       type,
       category_id: existId
     })
 
-    const transaction = await transitionsRepository.save(transactionCreate)
+    await transitionsRepository.save(transaction)
 
     return transaction;
   }
