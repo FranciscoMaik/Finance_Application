@@ -7,13 +7,6 @@ interface Balance {
   outcome: number;
   total: number;
 }
-
-interface Request {
-  title: string;
-  value: number;
-  type: 'income' | 'outcome';
-  category_id: string;
-}
 @EntityRepository(Transaction)
 class TransactionsRepository extends Repository<Transaction> {
   public async getBalance(): Promise<Balance> {

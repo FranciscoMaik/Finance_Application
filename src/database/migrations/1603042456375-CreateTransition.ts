@@ -34,7 +34,7 @@ export default class CreateTransition1603042456375
             type: 'varchar',
           },
           {
-            name: 'category_id',
+            name: 'category',
             type: 'uuid',
             isNullable: true,
           },
@@ -56,7 +56,7 @@ export default class CreateTransition1603042456375
       'transactions',
       new TableForeignKey({
         name: 'TransactionType',
-        columnNames: ['category_id'],
+        columnNames: ['category'],
         referencedColumnNames: ['id'],
         referencedTableName: 'categories',
         onDelete: 'SET NULL',
